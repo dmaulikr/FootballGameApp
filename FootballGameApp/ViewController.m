@@ -7,7 +7,9 @@
 //
 
 #import "ViewController.h"
+#import "MenuViewController.h"
 #import "MyScene.h"
+#import "FGUtilities.h"
 @import AVFoundation;
 
 @interface ViewController()
@@ -15,25 +17,52 @@
 @end
 
 
+
 @implementation ViewController
 
+-(void)initialSetup
+{
+    [[FGUtilities sharedInstance] setVcObject:self];
+}
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    [self initialSetup];
+    self.levelNumber = 1;
+    [[NSUserDefaults standardUserDefaults] setInteger:self.levelNumber  forKey:@"level"];
+    [[NSUserDefaults standardUserDefaults] setObject:self.playerColor   forKey:@"playerColor"];
+    [[NSUserDefaults standardUserDefaults] setObject:self.opponentColor forKey:@"opponentColor"];
+    [[NSUserDefaults standardUserDefaults] setInteger:self.difficulty   forKey:@"difficulty"];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(closeScene) name:@"closeScene" object:Nil];
+//    _pauseButton = [[UIButton alloc]init];
+//    _pauseButton = [UIButton buttonWithType:UIButtonTypeCustom];
+//    [_pauseButton addTarget:self
+//                action:@selector(pauseGame)
+//      forControlEvents:UIControlEventTouchDown];
+//    [_pauseButton setTitle:@"Pause" forState:UIControlStateNormal];
+//    _pauseButton.layer.anchorPoint = CGPointMake(0.5, 0.5);
+//    _pauseButton.frame = CGRectMake(self.view.frame.size.width/2 + 55, 7.5, 160.0, 40.0);
+//    [self.view addSubview:_pauseButton];
     
     // Configure the view.
-    SKView * skView = (SKView *)self.view;
-    skView.showsFPS = YES;
-    skView.showsNodeCount = YES;
+    skView = (SKView *)self.view;
+    skView.showsFPS = NO;
+    skView.showsNodeCount = NO;
     
     // Create and configure the scene.
-    SKScene * scene = [MyScene sceneWithSize:skView.bounds.size];
+    MyScene * scene = [MyScene sceneWithSize:skView.bounds.size];
     scene.scaleMode = SKSceneScaleModeAspectFill;
+    [scene setPlayerColor:self.playerColor];
+    [scene setOpponentColor:self.opponentColor];
     
     // Present the scene.
     [skView presentScene:scene];
 }
-
+-(void)closeScene
+{
+    [self dismissViewControllerAnimated:YES completion:nil];
+    //[[NSNotificationCenter defaultCenter] removeObserver:self name:@"closeScene" object:nil];
+}
 
 - (void)viewWillLayoutSubviews
 {
@@ -45,25 +74,51 @@
     self.backgroundMusicPlayer.numberOfLoops = -1;
     [self.backgroundMusicPlayer setVolume:0.3];
     [self.backgroundMusicPlayer prepareToPlay];
-    [self.backgroundMusicPlayer play];
+    if (self.soundIsEnabled) {
+       [self.backgroundMusicPlayer play];
+    }
     // Configure the view.
-    SKView * skView = (SKView *)self.view;
+    skView = (SKView *)self.view;
     if (skView.scene) {
-        skView.showsFPS = YES;
-        skView.showsNodeCount = YES;
+        skView.showsFPS = NO;
+        skView.showsNodeCount = NO;
         
         // Create and configure the scene.
         SKScene * scene = [MyScene sceneWithSize:skView.bounds.size];
         scene.scaleMode = SKSceneScaleModeAspectFill;
-        
+        MyScene *myScene = [MyScene sceneWithSize:skView.bounds.size];
+        [myScene setDifficulty:self.difficulty];
+        [myScene setPlayerColor:self.playerColor];
+        [myScene setOpponentColor:self.opponentColor];
         // Present the scene.
-        [skView presentScene:scene];
+        [skView presentScene:myScene];
     }
 }
 
 - (BOOL)shouldAutorotate
 {
     return YES;
+}
+
+-(void)pauseGame
+{
+    skView.paused = YES;
+    UIView *pauseView = [[UIView alloc]initWithFrame:CGRectMake(self.view.frame.size.width - 200, 50, self.view.frame.size.width, 150)];
+    pauseView.tag = 1001;
+    [pauseView setBackgroundColor:[UIColor whiteColor]];
+    UIButton *unpauseButton = [[UIButton alloc]init];
+    unpauseButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    [unpauseButton addTarget:self action:@selector(unpauseGame) forControlEvents:UIControlEventTouchUpInside];
+    [unpauseButton setFrame:CGRectMake(pauseView.frame.size.width / 3, 50, 100, 20)];
+    [unpauseButton setTitle:@"Resume" forState:UIControlStateNormal];
+    [unpauseButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+}
+
+-(void)unpauseGame
+{
+    skView.paused = NO;
+    UIView *pauseView = [skView viewWithTag:1001];
+    [pauseView removeFromSuperview];
 }
 
 - (NSUInteger)supportedInterfaceOrientations
@@ -79,6 +134,9 @@
 {
     [super didReceiveMemoryWarning];
     // Release any cached data, images, etc that aren't in use.
+}
+- (BOOL)prefersStatusBarHidden {
+    return YES;
 }
 
 @end

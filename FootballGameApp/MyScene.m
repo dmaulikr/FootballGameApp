@@ -7,6 +7,9 @@
 //
 
 #import "MyScene.h"
+#import "GameOverScene.h"
+#import "FGUtilities.h"
+
 static const uint32_t projectileCategory     =  0x1 << 0;
 static const uint32_t defenderCategory        =  0x1 << 1;
 static inline CGPoint rwAdd(CGPoint a, CGPoint b) {
@@ -32,9 +35,18 @@ static inline CGPoint rwNormalize(CGPoint a) {
 }
 // 1
 @interface MyScene ()
+@property (nonatomic) NSInteger numberOfDefenders;
 @property (nonatomic) SKSpriteNode * player;
+@property (nonatomic) SKLabelNode *scoreTitleLabel;
+@property (nonatomic) SKLabelNode *ballsUsedLabel;
+@property (nonatomic) SKLabelNode *levelLabel;
+@property (nonatomic) SKLabelNode *scoreNumberLabel;
 @property (nonatomic) NSTimeInterval lastSpawnTimeInterval;
 @property (nonatomic) NSTimeInterval lastUpdateTimeInterval;
+@property (nonatomic) NSInteger defenderDefeated;
+@property (nonatomic) NSInteger levelNumber;
+@property (nonatomic) NSInteger numberOfBallsUsed;
+
 @end
 
 @implementation MyScene
@@ -44,52 +56,149 @@ static inline CGPoint rwNormalize(CGPoint a) {
         
         // 2
         NSLog(@"Size: %@", NSStringFromCGSize(size));
+        self.playerColor = [[FGUtilities sharedInstance]vcObject].playerColor;
         
         // 3
-        self.backgroundColor = [SKColor colorWithRed:1.0 green:1.0 blue:1.0 alpha:1.0];
+        self.backgroundColor = [SKColor clearColor];
+        SKSpriteNode *backgroundImage = [SKSpriteNode spriteNodeWithImageNamed:@"footbalField"];
+        //backgroundImage.size = CGSizeMake(self.size.height, self.size.width);
+        backgroundImage.position = CGPointMake(CGRectGetMidX(self.frame), CGRectGetMidY(self.frame));
+        [self addChild:backgroundImage];
+        
+        
         
         // 4
-        self.player = [SKSpriteNode spriteNodeWithImageNamed:@"player"];
-        self.player.position = CGPointMake(20, 140);
+        self.player = [SKSpriteNode spriteNodeWithImageNamed:@"bluePlayer"];
+
+        NSDictionary *dictColor = @{
+                                    @"blue":^{
+                                        self.player = [SKSpriteNode spriteNodeWithImageNamed:@"bluePlayer"];
+                                    },
+                                    @"green": ^{
+                                        self.player = [SKSpriteNode spriteNodeWithImageNamed:@"greenPlayer"];
+                                    },@"red": ^{
+                                        self.player = [SKSpriteNode spriteNodeWithImageNamed:@"redPlayer"];
+                                    },@"yellow": ^{
+                                        self.player = [SKSpriteNode spriteNodeWithImageNamed:@"yellowPlayer"];
+                                    },
+        };
+        ((PlayerColorBlock)dictColor[self.playerColor])();
+        
+        self.player.position = CGPointMake(20, (self.size.height/2) - (self.player.size.height / 2));
         [self addChild:self.player];
+        
+        self.scoreTitleLabel = [[SKLabelNode alloc]initWithFontNamed:@"HelveticaNeue"];
+        [self.scoreTitleLabel setPosition:CGPointMake(self.size.width - 100, 10)];
+        [self.scoreTitleLabel setFontSize:20];
+        [self.scoreTitleLabel setText:@"Score"];
+        [self addChild:self.scoreTitleLabel];
+        
+        self.scoreNumberLabel = [[SKLabelNode alloc]initWithFontNamed:@"HelveticaNeue"];
+        [self.scoreNumberLabel setPosition:CGPointMake(self.size.width - 50, 10)];
+        [self.scoreNumberLabel setFontSize:20];
+        self.levelLabel = [[SKLabelNode alloc]initWithFontNamed:@"HelveticaNeue"];
+        [self.levelLabel setPosition:CGPointMake(50, 300)];
+        [self.levelLabel setFontSize:20];
+        self.levelNumber = [[NSUserDefaults standardUserDefaults]integerForKey:@"level"];
+        if (self.levelNumber < 2) {
+            [[NSUserDefaults standardUserDefaults]setInteger:0 forKey:@"currentScore"];
+            [[NSUserDefaults standardUserDefaults]setInteger:0 forKey:@"ballsUsed"];
+        }
+        [self.levelLabel setText:[NSString stringWithFormat:@"Level %ld", (long)self.levelNumber]];
+        [self addChild:self.levelLabel];
+        NSInteger currentScore = [[NSUserDefaults standardUserDefaults]integerForKey:@"currentScore"];
+        if (currentScore > 0) {
+            self.defenderDefeated = currentScore;
+        }else{
+            self.defenderDefeated = 0;
+            [[NSUserDefaults standardUserDefaults] setInteger:0 forKey:@"currentScore"];
+        }
+        
+        [self.scoreNumberLabel setText:[NSString stringWithFormat:@"%ld",(long)self.defenderDefeated]];
+        [self addChild:self.scoreNumberLabel];
+
         self.physicsWorld.gravity = CGVectorMake(0, 0);
         self.physicsWorld.contactDelegate = self;
+        
+        
         
     }
     return self;
 }
 
--(void)addDefender
+
+
+
+-(void)addDefenders:(NSInteger)defenders
 {
+    self.opponentColor =[[FGUtilities sharedInstance]vcObject].opponentColor;
+    if (!self.opponentColor) {
+        self.opponentColor = @"blue";
+    }
     //Create Sprite
-    SKSpriteNode *defender = [SKSpriteNode spriteNodeWithImageNamed:@"defender"];
-    defender.physicsBody = [SKPhysicsBody bodyWithRectangleOfSize:defender.size];
-    defender.physicsBody.dynamic = YES;
-    defender.physicsBody.categoryBitMask = defenderCategory;
-    defender.physicsBody.contactTestBitMask = projectileCategory;
-    defender.physicsBody.collisionBitMask = 0;
-    //Determine where to spawm the defender along the Y axis
+    for (int x = 0; x<defenders; x++) {
+        __block SKSpriteNode *defender;
     
-    int minY = defender.size.height / 2;
-    int maxY = self.frame.size.height - defender.size.height / 2;
-    int rangeY = maxY - minY;
-    int actualY = (arc4random() % rangeY) + minY;
-    
-    // Create the defender slightly off-screen along the right edge,
-    // and along a random position along the Y axis as calculated above
-    defender.position = CGPointMake(self.frame.size.width + defender.size.width / 2, actualY);
-    [self addChild:defender];
-    
-    //Determine speed of the defender
-    int minDuration = 2.0;
-    int maxDuration = 4.0;
-    int rangeDuration = maxDuration - minDuration;
-    int actualDuration = (arc4random() % rangeDuration) + minDuration;
-    
-    //Actions
-    SKAction *actionMove = [SKAction moveTo:CGPointMake(-defender.size.width / 2, actualY) duration:actualDuration];
-    SKAction *actionMoveDone = [SKAction removeFromParent];
-    [defender runAction:[SKAction sequence:@[actionMove, actionMoveDone]]];
+        NSDictionary *dictColor = @{
+                                    @"blue":^{
+                                        defender = [SKSpriteNode spriteNodeWithImageNamed:@"blueDefender"];
+                                    },
+                                    @"green": ^{
+                                        defender = [SKSpriteNode spriteNodeWithImageNamed:@"greenDefender"];
+                                    },@"red": ^{
+                                        defender = [SKSpriteNode spriteNodeWithImageNamed:@"redDefender"];
+                                    },@"yellow": ^{
+                                        defender = [SKSpriteNode spriteNodeWithImageNamed:@"yellowDefender"];
+                                    },
+                                    };
+        if (self.opponentColor) {
+            ((OpponentColorBlock)dictColor[self.opponentColor])();
+        }
+        
+       
+        defender.physicsBody = [SKPhysicsBody bodyWithRectangleOfSize:defender.size];
+        defender.physicsBody.dynamic = YES;
+        defender.physicsBody.categoryBitMask = defenderCategory;
+        defender.physicsBody.contactTestBitMask = projectileCategory;
+        defender.physicsBody.collisionBitMask = 0;
+        //Determine where to spawm the defender along the Y axis
+        
+        int minY = defender.size.height / 2;
+        int maxY = self.frame.size.height - defender.size.height / 2;
+        int rangeY = maxY - minY;
+        int actualY = (arc4random() % rangeY) + minY;
+        
+        // Create the defender slightly off-screen along the right edge,
+        // and along a random position along the Y axis as calculated above
+        defender.position = CGPointMake(self.frame.size.width + defender.size.width / 2, actualY);
+        [self addChild:defender];
+        
+        //Determine speed of the defender
+        int minDuration = 2.0;
+        int maxDuration = 4.0;
+        int rangeDuration = maxDuration - minDuration;
+        int actualDuration = (arc4random() % rangeDuration) + minDuration;
+        
+        
+        //Actions
+        SKAction *actionMove = [SKAction moveTo:CGPointMake(-defender.size.width / 2, actualY) duration:actualDuration];
+        SKAction *actionMoveDone = [SKAction removeFromParent];
+        SKAction *loseAction = [SKAction runBlock:^{
+            SKTransition *reveal = [SKTransition flipHorizontalWithDuration:0.5];
+            [[NSUserDefaults standardUserDefaults]setInteger:self.numberOfBallsUsed forKey:@"ballsUsed"];
+            [[NSUserDefaults standardUserDefaults]setInteger:self.defenderDefeated forKey:@"currentScore"];
+            float accuracyPercentage = (self.defenderDefeated != 0) ? ((float)self.defenderDefeated / (float)self.numberOfBallsUsed) : 0.0f;
+            float bonus =  accuracyPercentage + 1.0f;
+             int accuracyBonus = self.defenderDefeated * bonus;
+            [[NSUserDefaults standardUserDefaults]setFloat:accuracyPercentage forKey:@"accuracyPercentage"];
+            [[NSUserDefaults standardUserDefaults]setInteger:accuracyBonus forKey:@"accuracyBonus"];
+            
+            
+            SKScene *gameOverScene = [[GameOverScene alloc]initWithSize:self.size won:NO];
+            [self.view presentScene:gameOverScene transition:reveal];
+        }];
+        [defender runAction:[SKAction sequence:@[actionMove,loseAction, actionMoveDone]]];
+    }
 }
 
 -(void)updateWithTimeSinceLastUpdate:(CFTimeInterval)timeSinceLast
@@ -97,7 +206,32 @@ static inline CGPoint rwNormalize(CGPoint a) {
     self.lastSpawnTimeInterval += timeSinceLast;
     if (self.lastSpawnTimeInterval > 1) {
         self.lastSpawnTimeInterval = 0;
-        [self addDefender];
+        self.difficulty = [[FGUtilities sharedInstance]vcObject].difficulty;
+        
+        /*switch (self.difficulty) {
+            case 1:
+            {
+                self.numberOfDefenders = 1;
+                break;
+            }
+            case 2:
+            {
+                self.numberOfDefenders = 2;
+                break;
+            }
+            case 3:
+            {
+                self.numberOfDefenders = 3;
+                break;
+            }
+            default:
+                self.numberOfDefenders = 1;
+                break;
+        }*/
+        self.numberOfDefenders = [[NSUserDefaults standardUserDefaults]integerForKey:@"defenders#"];
+        [self addDefenders:self.numberOfDefenders];
+     
+        
     }
 }
 
@@ -173,6 +307,7 @@ static inline CGPoint rwNormalize(CGPoint a) {
     SKAction *rotateAction = [SKAction rotateByAngle:M_PI duration:2];
     
     [projectile runAction:[SKAction sequence:@[actionMove, actionMoveDone, rotateAction]]];
+    ++self.numberOfBallsUsed;
     
 }
 
@@ -181,7 +316,33 @@ static inline CGPoint rwNormalize(CGPoint a) {
     NSLog(@"Hit");
     [projectile removeFromParent];
     [defender removeFromParent];
+    self.defenderDefeated++;
+    [self.scoreNumberLabel setText:[NSString stringWithFormat:@"%ld",(long)self.defenderDefeated]];
+    NSInteger currentLevel = [[NSUserDefaults standardUserDefaults]integerForKey:@"level"];
+    if (self.defenderDefeated > (currentLevel * 20)) {
+        SKTransition *reveal = [SKTransition flipHorizontalWithDuration:0.5];
+        SKScene *gameOverScene = [[GameOverScene alloc]initWithSize:self.size won:YES];
+        [[NSUserDefaults standardUserDefaults]setInteger:self.defenderDefeated forKey:@"currentScore"];
+       
+        
+        
+        [self.view presentScene:gameOverScene transition:reveal];
+    }
 }
+
+-(SKLabelNode *)pauseButton
+{
+    SKLabelNode *label = [SKLabelNode labelNodeWithFontNamed:@"HelveticaNeue"];
+    label.text = @"Pause";
+    label.fontSize = 20;
+    label.fontColor = [SKColor blackColor];
+    label.position = CGPointMake(self.size.width - 50, 300);
+    label.userInteractionEnabled = YES;
+    
+    return label;
+}
+
+
 
 -(void)didBeginContact:(SKPhysicsContact *)contact
 {
@@ -200,6 +361,15 @@ static inline CGPoint rwNormalize(CGPoint a) {
     if ((firstBody.categoryBitMask & projectileCategory) != 0 && (secondBody.categoryBitMask & defenderCategory) != 0) {
         [self projectile:firstBody.node didCollideWithDefender:secondBody.node];
     }
+}
+
+-(void)pauseGame
+{
+    self.paused = YES;
+}
+-(void)unpauseGame
+{
+    self.paused = NO;
 }
 
 

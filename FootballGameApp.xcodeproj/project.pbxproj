@@ -7,6 +7,18 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0E03EAA7197F6876009FD5A3 /* GamePreferences.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 0E03EAA5197F6876009FD5A3 /* GamePreferences.xcdatamodeld */; };
+		0E03EAAE197F7244009FD5A3 /* FGUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E03EAAD197F7244009FD5A3 /* FGUtilities.m */; };
+		0E3A2B00198C811100E0C2A3 /* NextLevelScene.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E3A2AFF198C811100E0C2A3 /* NextLevelScene.m */; };
+		0E4CDD3F19762FB400930256 /* MenuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E4CDD3E19762FB400930256 /* MenuViewController.m */; };
+		0E4CDD41197638F400930256 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 0E4CDD40197638F400930256 /* Localizable.strings */; };
+		0E4CDD4419763DAE00930256 /* GameOptionsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E4CDD4319763DAE00930256 /* GameOptionsViewController.m */; };
+		0E4D0C8E199347F000DC70A2 /* UIColor+customProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E4D0C8D199347F000DC70A2 /* UIColor+customProperties.m */; };
+		0E58C0941970F19600DF7E8C /* GameOverScene.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E58C0931970F19600DF7E8C /* GameOverScene.m */; };
+		0E6033121970FEA2003974EF /* booCrowd.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 0E6033111970FEA2003974EF /* booCrowd.mp3 */; };
+		0E6033141970FEF5003974EF /* cheerCrowd.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 0E6033131970FEF5003974EF /* cheerCrowd.mp3 */; };
+		0E949AEE19C1F31F0071DFA1 /* iAd.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0E949AED19C1F31F0071DFA1 /* iAd.framework */; };
+		0EBC0B521980C293005D2BE7 /* UserPreferences.m in Sources */ = {isa = PBXBuildFile; fileRef = 0EBC0B511980C293005D2BE7 /* UserPreferences.m */; };
 		0EFAC43A196E3F6600B6B8C0 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0EFAC439196E3F6600B6B8C0 /* Foundation.framework */; };
 		0EFAC43C196E3F6600B6B8C0 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0EFAC43B196E3F6600B6B8C0 /* CoreGraphics.framework */; };
 		0EFAC43E196E3F6600B6B8C0 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0EFAC43D196E3F6600B6B8C0 /* UIKit.framework */; };
@@ -40,6 +52,25 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		0E03EAA6197F6876009FD5A3 /* GamePreferences.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = GamePreferences.xcdatamodel; sourceTree = "<group>"; };
+		0E03EAAC197F7244009FD5A3 /* FGUtilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FGUtilities.h; sourceTree = "<group>"; };
+		0E03EAAD197F7244009FD5A3 /* FGUtilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FGUtilities.m; sourceTree = "<group>"; };
+		0E3A2AFE198C811100E0C2A3 /* NextLevelScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NextLevelScene.h; sourceTree = "<group>"; };
+		0E3A2AFF198C811100E0C2A3 /* NextLevelScene.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NextLevelScene.m; sourceTree = "<group>"; };
+		0E4CDD3D19762FB400930256 /* MenuViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MenuViewController.h; sourceTree = "<group>"; };
+		0E4CDD3E19762FB400930256 /* MenuViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MenuViewController.m; sourceTree = "<group>"; };
+		0E4CDD40197638F400930256 /* Localizable.strings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; path = Localizable.strings; sourceTree = "<group>"; };
+		0E4CDD4219763DAE00930256 /* GameOptionsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameOptionsViewController.h; sourceTree = "<group>"; };
+		0E4CDD4319763DAE00930256 /* GameOptionsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameOptionsViewController.m; sourceTree = "<group>"; };
+		0E4D0C8C199347F000DC70A2 /* UIColor+customProperties.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+customProperties.h"; sourceTree = "<group>"; };
+		0E4D0C8D199347F000DC70A2 /* UIColor+customProperties.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+customProperties.m"; sourceTree = "<group>"; };
+		0E58C0921970F19600DF7E8C /* GameOverScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameOverScene.h; sourceTree = "<group>"; };
+		0E58C0931970F19600DF7E8C /* GameOverScene.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameOverScene.m; sourceTree = "<group>"; };
+		0E6033111970FEA2003974EF /* booCrowd.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = booCrowd.mp3; sourceTree = "<group>"; };
+		0E6033131970FEF5003974EF /* cheerCrowd.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = cheerCrowd.mp3; sourceTree = "<group>"; };
+		0E949AED19C1F31F0071DFA1 /* iAd.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = iAd.framework; path = System/Library/Frameworks/iAd.framework; sourceTree = SDKROOT; };
+		0EBC0B501980C293005D2BE7 /* UserPreferences.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = UserPreferences.h; path = ../UserPreferences.h; sourceTree = "<group>"; };
+		0EBC0B511980C293005D2BE7 /* UserPreferences.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = UserPreferences.m; path = ../UserPreferences.m; sourceTree = "<group>"; };
 		0EFAC436196E3F6600B6B8C0 /* FootballGameApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FootballGameApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0EFAC439196E3F6600B6B8C0 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		0EFAC43B196E3F6600B6B8C0 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -73,6 +104,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0E949AEE19C1F31F0071DFA1 /* iAd.framework in Frameworks */,
 				0EFAC43C196E3F6600B6B8C0 /* CoreGraphics.framework in Frameworks */,
 				0EFAC43E196E3F6600B6B8C0 /* UIKit.framework in Frameworks */,
 				0EFAC440196E3F6600B6B8C0 /* SpriteKit.framework in Frameworks */,
@@ -93,6 +125,24 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0E03EAAB197F68BE009FD5A3 /* User Preferences */ = {
+			isa = PBXGroup;
+			children = (
+				0EBC0B501980C293005D2BE7 /* UserPreferences.h */,
+				0EBC0B511980C293005D2BE7 /* UserPreferences.m */,
+			);
+			name = "User Preferences";
+			sourceTree = "<group>";
+		};
+		0E4D0C8B199347C900DC70A2 /* Categories */ = {
+			isa = PBXGroup;
+			children = (
+				0E4D0C8C199347F000DC70A2 /* UIColor+customProperties.h */,
+				0E4D0C8D199347F000DC70A2 /* UIColor+customProperties.m */,
+			);
+			name = Categories;
+			sourceTree = "<group>";
+		};
 		0EFAC42D196E3F6600B6B8C0 = {
 			isa = PBXGroup;
 			children = (
@@ -115,6 +165,7 @@
 		0EFAC438196E3F6600B6B8C0 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				0E949AED19C1F31F0071DFA1 /* iAd.framework */,
 				0EFAC439196E3F6600B6B8C0 /* Foundation.framework */,
 				0EFAC43B196E3F6600B6B8C0 /* CoreGraphics.framework */,
 				0EFAC43D196E3F6600B6B8C0 /* UIKit.framework */,
@@ -127,14 +178,27 @@
 		0EFAC441196E3F6600B6B8C0 /* FootballGameApp */ = {
 			isa = PBXGroup;
 			children = (
+				0E03EAAC197F7244009FD5A3 /* FGUtilities.h */,
+				0E03EAAD197F7244009FD5A3 /* FGUtilities.m */,
+				0E4D0C8B199347C900DC70A2 /* Categories */,
+				0E03EAA5197F6876009FD5A3 /* GamePreferences.xcdatamodeld */,
+				0E03EAAB197F68BE009FD5A3 /* User Preferences */,
 				0EFAC44A196E3F6600B6B8C0 /* AppDelegate.h */,
 				0EFAC44B196E3F6600B6B8C0 /* AppDelegate.m */,
 				0EFAC44D196E3F6600B6B8C0 /* Main_iPhone.storyboard */,
 				0EFAC450196E3F6600B6B8C0 /* Main_iPad.storyboard */,
+				0E4CDD3D19762FB400930256 /* MenuViewController.h */,
+				0E4CDD3E19762FB400930256 /* MenuViewController.m */,
+				0E4CDD4219763DAE00930256 /* GameOptionsViewController.h */,
+				0E4CDD4319763DAE00930256 /* GameOptionsViewController.m */,
 				0EFAC453196E3F6600B6B8C0 /* ViewController.h */,
 				0EFAC454196E3F6600B6B8C0 /* ViewController.m */,
 				0EFAC456196E3F6600B6B8C0 /* MyScene.h */,
 				0EFAC457196E3F6600B6B8C0 /* MyScene.m */,
+				0E3A2AFE198C811100E0C2A3 /* NextLevelScene.h */,
+				0E3A2AFF198C811100E0C2A3 /* NextLevelScene.m */,
+				0E58C0921970F19600DF7E8C /* GameOverScene.h */,
+				0E58C0931970F19600DF7E8C /* GameOverScene.m */,
 				0EFAC459196E3F6600B6B8C0 /* Spaceship.png */,
 				0EFAC45B196E3F6600B6B8C0 /* Images.xcassets */,
 				0EFAC442196E3F6600B6B8C0 /* Supporting Files */,
@@ -148,6 +212,7 @@
 				0EFAC47A196E517300B6B8C0 /* Sounds */,
 				0EFAC443196E3F6600B6B8C0 /* FootballGameApp-Info.plist */,
 				0EFAC444196E3F6600B6B8C0 /* InfoPlist.strings */,
+				0E4CDD40197638F400930256 /* Localizable.strings */,
 				0EFAC447196E3F6600B6B8C0 /* main.m */,
 				0EFAC449196E3F6600B6B8C0 /* FootballGameApp-Prefix.pch */,
 			);
@@ -175,8 +240,10 @@
 		0EFAC47A196E517300B6B8C0 /* Sounds */ = {
 			isa = PBXGroup;
 			children = (
+				0E6033111970FEA2003974EF /* booCrowd.mp3 */,
 				0EFAC47D196E528800B6B8C0 /* bounce.mp3 */,
 				0EFAC47B196E518900B6B8C0 /* crowd.mp3 */,
+				0E6033131970FEF5003974EF /* cheerCrowd.mp3 */,
 			);
 			name = Sounds;
 			sourceTree = "<group>";
@@ -228,6 +295,9 @@
 				LastUpgradeCheck = 0510;
 				ORGANIZATIONNAME = "Ernesto Sánchez Kuri";
 				TargetAttributes = {
+					0EFAC435196E3F6600B6B8C0 = {
+						DevelopmentTeam = 49VFMFM852;
+					};
 					0EFAC460196E3F6600B6B8C0 = {
 						TestTargetID = 0EFAC435196E3F6600B6B8C0;
 					};
@@ -258,9 +328,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				0EFAC47C196E518900B6B8C0 /* crowd.mp3 in Resources */,
+				0E6033121970FEA2003974EF /* booCrowd.mp3 in Resources */,
 				0EFAC45A196E3F6600B6B8C0 /* Spaceship.png in Resources */,
 				0EFAC45C196E3F6600B6B8C0 /* Images.xcassets in Resources */,
 				0EFAC47E196E528800B6B8C0 /* bounce.mp3 in Resources */,
+				0E4CDD41197638F400930256 /* Localizable.strings in Resources */,
+				0E6033141970FEF5003974EF /* cheerCrowd.mp3 in Resources */,
 				0EFAC452196E3F6600B6B8C0 /* Main_iPad.storyboard in Resources */,
 				0EFAC44F196E3F6600B6B8C0 /* Main_iPhone.storyboard in Resources */,
 				0EFAC446196E3F6600B6B8C0 /* InfoPlist.strings in Resources */,
@@ -282,10 +355,18 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0E03EAA7197F6876009FD5A3 /* GamePreferences.xcdatamodeld in Sources */,
+				0E4D0C8E199347F000DC70A2 /* UIColor+customProperties.m in Sources */,
+				0E4CDD4419763DAE00930256 /* GameOptionsViewController.m in Sources */,
+				0E58C0941970F19600DF7E8C /* GameOverScene.m in Sources */,
+				0EBC0B521980C293005D2BE7 /* UserPreferences.m in Sources */,
+				0E3A2B00198C811100E0C2A3 /* NextLevelScene.m in Sources */,
+				0E4CDD3F19762FB400930256 /* MenuViewController.m in Sources */,
 				0EFAC458196E3F6600B6B8C0 /* MyScene.m in Sources */,
 				0EFAC455196E3F6600B6B8C0 /* ViewController.m in Sources */,
 				0EFAC44C196E3F6600B6B8C0 /* AppDelegate.m in Sources */,
 				0EFAC448196E3F6600B6B8C0 /* main.m in Sources */,
+				0E03EAAE197F7244009FD5A3 /* FGUtilities.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -420,11 +501,15 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "FootballGameApp/FootballGameApp-Prefix.pch";
 				INFOPLIST_FILE = "FootballGameApp/FootballGameApp-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "75EC98A1-C74C-47BA-84B2-0900A899A763";
 				SPRITEKIT_TEXTURE_ATLAS_OUTPUT = YES;
+				TARGETED_DEVICE_FAMILY = 1;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -434,11 +519,15 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "FootballGameApp/FootballGameApp-Prefix.pch";
 				INFOPLIST_FILE = "FootballGameApp/FootballGameApp-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "75EC98A1-C74C-47BA-84B2-0900A899A763";
 				SPRITEKIT_TEXTURE_ATLAS_OUTPUT = YES;
+				TARGETED_DEVICE_FAMILY = 1;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
@@ -514,6 +603,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		0E03EAA5197F6876009FD5A3 /* GamePreferences.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				0E03EAA6197F6876009FD5A3 /* GamePreferences.xcdatamodel */,
+			);
+			currentVersion = 0E03EAA6197F6876009FD5A3 /* GamePreferences.xcdatamodel */;
+			path = GamePreferences.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = 0EFAC42E196E3F6600B6B8C0 /* Project object */;
 }

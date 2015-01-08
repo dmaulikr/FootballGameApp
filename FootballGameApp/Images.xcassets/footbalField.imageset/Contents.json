@@ -1,14 +1,34 @@
 {
   "images" : [
     {
-      "idiom" : "universal",
+      "idiom" : "iphone",
       "scale" : "1x",
-      "filename" : "footbalField.png"
+      "filename" : "footbalField~iphone.png"
     },
     {
-      "idiom" : "universal",
+      "idiom" : "iphone",
       "scale" : "2x",
-      "filename" : "footbalField@2x.png"
+      "filename" : "footbalField@2x~iphone.png"
+    },
+    {
+      "idiom" : "iphone",
+      "filename" : "footbalField-568h@2x.png",
+      "subtype" : "retina4",
+      "scale" : "2x"
+    },
+    {
+      "idiom" : "iphone",
+      "scale" : "3x"
+    },
+    {
+      "idiom" : "ipad",
+      "scale" : "1x",
+      "filename" : "footbalField~ipad.png"
+    },
+    {
+      "idiom" : "ipad",
+      "scale" : "2x",
+      "filename" : "footbalField@2x~ipad.png"
     }
   ],
   "info" : {
