@@ -7,13 +7,14 @@
 //
 
 #import "AppDelegate.h"
-
+#import "GCHelper.h"
 @implementation AppDelegate
 @synthesize managedObjectContext = _managedObjectContext;
 @synthesize managedObjectModel = _managedObjectModel;
 @synthesize persistentStoreCoordinator = _persistentStoreCoordinator;
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+   // [[GCHelper sharedInstance] authenticateLocalUser];
     // Override point for customization after application launch.
     return YES;
 }

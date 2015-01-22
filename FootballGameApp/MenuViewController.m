@@ -10,8 +10,15 @@
 #import "GameOptionsViewController.h"
 #import "ViewController.h"
 #import "UserPreferences.h"
+#import "GCHelper.h"
+
 @interface MenuViewController ()
 @property (strong) NSMutableArray *savedPreferences;
+@property (nonatomic) BOOL gameCenterEnabled;
+@property (nonatomic, strong) NSString *leaderboardIdentifier;
+@property (nonatomic) int64_t score;
+
+-(void)authenticatePlayer;
 @end
 
 @implementation MenuViewController
@@ -31,7 +38,11 @@
     appDelegate= [UIApplication sharedApplication].delegate;
     self.managedObjectContext = appDelegate.managedObjectContext;
     self.fetchedPreferences = [appDelegate getUserPreferences];
+    _gameCenterEnabled = NO;
+    _leaderboardIdentifier = @"Footvaders.Leaderboard";
     
+    //[[GCHelper sharedInstance] authenticateLocalUserInController:self];
+    [self authenticatePlayer];
     }
 -(void)viewDidAppear:(BOOL)animated
 {
@@ -114,4 +125,38 @@
 - (IBAction)goToOptions:(id)sender {
     [self performSegueWithIdentifier:@"optionsSegue" sender:sender];
 }
+
+//Game Center
+-(void)authenticatePlayer
+{
+    [[NSUserDefaults standardUserDefaults] setBool:self.gameCenterEnabled  forKey:@"GCEnabled"];
+    GKLocalPlayer *localPlayer = [GKLocalPlayer localPlayer];
+    localPlayer.authenticateHandler = ^(UIViewController *viewController, NSError *error){
+        if (viewController != nil) {
+            [self presentViewController:viewController animated:YES completion:^{
+                
+            }];
+        }else{
+            if ([GKLocalPlayer localPlayer].authenticated) {
+                _gameCenterEnabled = YES;
+                // Get the default leaderboard identifier.
+                [[GKLocalPlayer localPlayer] loadDefaultLeaderboardIdentifierWithCompletionHandler:^(NSString *leaderboardIdentifier, NSError *error) {
+                    
+                    if (error != nil) {
+                        NSLog(@"%@", [error localizedDescription]);
+                    }
+                    else{
+                        [[NSUserDefaults standardUserDefaults] setBool:self.gameCenterEnabled  forKey:@"GCEnabled"];
+                        _leaderboardIdentifier = leaderboardIdentifier;
+                    }
+                }];
+            }
+            
+            else{
+                _gameCenterEnabled = NO;
+            }
+        }
+    };
+}
+
 @end

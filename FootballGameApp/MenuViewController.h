@@ -12,6 +12,7 @@ typedef NS_ENUM(NSInteger, difficulties) {
 };
 #import "ViewController.h"
 #import <CoreData/CoreData.h>
+#import <GameKit/GameKit.h>
 @class UserPreferences;
 @interface MenuViewController : UIViewController
 {

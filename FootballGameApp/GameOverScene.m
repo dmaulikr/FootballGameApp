@@ -10,16 +10,28 @@
 #import "MyScene.h"
 #import "FGUtilities.h"
 
+@interface GameOverScene ()
+@property (nonatomic) BOOL soundIsEnabled;
+@property (nonatomic) NSInteger finalScore;
+@property (nonatomic) NSInteger difficulty;
+@property (nonatomic) BOOL gameCenterEnabled;
+@property (nonatomic, strong) NSString *leaderboardIdentifier;
+@property (nonatomic) int64_t score;
+@end
 @implementation GameOverScene
 
 -(id)initWithSize:(CGSize)size won:(BOOL)won
 {
+     _leaderboardIdentifier = @"Footvaders.Leaderboard";
     if (self = [self initWithSize:size]) {
+        self.soundIsEnabled = [[FGUtilities sharedInstance]vcObject].soundIsEnabled;
+        self.difficulty = (NSInteger)[[FGUtilities sharedInstance]vcObject].difficulty;
         //1
         self.backgroundColor = [SKColor colorWithRed:158.0f/255.0f green:229.0f/255.0f blue:88.0f/255.0f alpha:1];
         //2
         NSString *message;
         NSString *accuracyMessage;
+        NSString *difficultyBonus;
         NSString *finalScoreMessage;
         if (won) {
             NSInteger defaultLevel= [[NSUserDefaults standardUserDefaults] integerForKey:@"level"];
@@ -29,7 +41,9 @@
             currentLevel++;
             [[NSUserDefaults standardUserDefaults]setInteger:currentLevel forKey:@"defenders#"];
             message = [NSString stringWithFormat:@"Level %ld", (long)[[NSUserDefaults standardUserDefaults]integerForKey:@"level"]];
-            [self runAction:[SKAction playSoundFileNamed:@"cheerCrowd.mp3" waitForCompletion:NO]];
+            if (self.soundIsEnabled) {
+             [self runAction:[SKAction playSoundFileNamed:@"cheerCrowd.mp3" waitForCompletion:NO]];
+            }
             SKLabelNode *label = [SKLabelNode labelNodeWithFontNamed:@"HelveticaNeue"];
             label.text = message;
             label.fontSize = 40;
@@ -49,35 +63,50 @@
                                   ]]
              ];
         }else{
+            
+            [[NSUserDefaults standardUserDefaults]setInteger:0 forKey:@"ballsUsed"];
+
             NSInteger currentScore = [[NSUserDefaults standardUserDefaults]integerForKey:@"currentScore"];
             NSInteger accuracy = 100 *  [[NSUserDefaults standardUserDefaults] floatForKey:@"accuracyPercentage"];
-           NSInteger finalScore = [[NSUserDefaults standardUserDefaults] integerForKey: @"accuracyBonus"];
+           self.finalScore = [[NSUserDefaults standardUserDefaults] integerForKey: @"accuracyBonus"];
             
             
             message =[NSString stringWithFormat:@"You defeated %ld defenders", (long)currentScore];
             accuracyMessage = [NSString stringWithFormat:@"Your accuracy was of %ld %%", (long)accuracy];
-            finalScoreMessage = [NSString stringWithFormat:@"Your final score is: %ld", (long)finalScore];
-            
-            [self runAction:[SKAction playSoundFileNamed:@"booCrowd.mp3" waitForCompletion:NO]];
+            difficultyBonus = [NSString stringWithFormat:@"Your difficulty multiplier is %ld x", self.difficulty];
+            self.finalScore *= self.difficulty;
+            self.score = self.finalScore;
+            finalScoreMessage = [NSString stringWithFormat:@"Your final score is: %ld", (long)self.finalScore];
+            [self reportMyScore];
+            if (self.soundIsEnabled) {
+                [self runAction:[SKAction playSoundFileNamed:@"booCrowd.mp3" waitForCompletion:NO]];
+            }
             SKLabelNode *label = [SKLabelNode labelNodeWithFontNamed:@"HelveticaNeue"];
             label.text = message;
-            label.fontSize = 30;
+            label.fontSize = 20;
             label.fontColor = [SKColor blackColor];
             label.position = CGPointMake(self.size.width / 2, self.size.height/2 - 20);
             [self addChild:label];
             
             SKLabelNode *accuracyLabel = [SKLabelNode labelNodeWithFontNamed:@"HelveticaNeue"];
             accuracyLabel.text = accuracyMessage;
-            accuracyLabel.fontSize = 30;
+            accuracyLabel.fontSize = 20;
             accuracyLabel.fontColor = [SKColor blackColor];
             accuracyLabel.position = CGPointMake(self.size.width / 2, (label.frame.origin.y + label.frame.size.height + 10));
             [self addChild:accuracyLabel];
             
-            SKLabelNode *finalScoreLabel = [SKLabelNode labelNodeWithFontNamed:@"HelveticaNeue"];
+            SKLabelNode *difficultyScoreLabel = [SKLabelNode labelNodeWithFontNamed:@"HelveticaNeue"];
+            difficultyScoreLabel.text = difficultyBonus;
+            difficultyScoreLabel.fontSize = 20;
+            difficultyScoreLabel.fontColor = [SKColor blackColor];
+            difficultyScoreLabel.position = CGPointMake(self.size.width / 2, (accuracyLabel.frame.origin.y + accuracyLabel.frame.size.height + 10));
+            [self addChild:difficultyScoreLabel];
+            
+            SKLabelNode *finalScoreLabel = [SKLabelNode labelNodeWithFontNamed:@"HelveticaNeue-Bold"];
             finalScoreLabel.text = finalScoreMessage;
-            finalScoreLabel.fontSize = 30;
+            finalScoreLabel.fontSize = 20;
             finalScoreLabel.fontColor = [SKColor blackColor];
-            finalScoreLabel.position = CGPointMake(self.size.width / 2, (accuracyLabel.frame.origin.y + accuracyLabel.frame.size.height + 10));
+            finalScoreLabel.position = CGPointMake(self.size.width / 2, (difficultyScoreLabel.frame.origin.y + difficultyScoreLabel.frame.size.height + 10));
             [self addChild:finalScoreLabel];
             
             
@@ -86,15 +115,16 @@
             
             SKShapeNode *circleNode = [[SKShapeNode alloc]init];
             circleNode.name = @"playAgainNode";
-            circleNode.path = [UIBezierPath bezierPathWithOvalInRect:CGRectMake(-120, -20, 250, 60)].CGPath;
+            circleNode.path = [UIBezierPath bezierPathWithRect:CGRectMake(-70, -10, 125, 30)].CGPath;
             circleNode.fillColor = [SKColor clearColor];
             circleNode.lineWidth = 2;
-            circleNode.strokeColor = [SKColor blackColor];
+            circleNode.strokeColor = [SKColor whiteColor];
             
             
             [playAgain setText:@"Play Again"];
-            playAgain.fontColor = [SKColor blackColor];
-            playAgain.position = CGPointMake(self.size.width /2, self.size.height / 1.2);
+            playAgain.fontColor = [SKColor whiteColor];
+            playAgain.fontSize = 20;
+            playAgain.position = CGPointMake(self.size.width /6, self.size.height / 1.1);
             [playAgain addChild:circleNode];
             [self addChild:playAgain];
             
@@ -103,18 +133,39 @@
             
             SKLabelNode *menuLabel = [SKLabelNode labelNodeWithFontNamed:@"HelveticaNeue"];
             [menuLabel setText:@"Exit"];
-            menuLabel.fontColor = [SKColor blackColor];
-            menuLabel.position = CGPointMake(self.size.width /2, 30);
+            menuLabel.fontColor = [SKColor whiteColor];
+            menuLabel.position = CGPointMake(self.size.width - 100, self.size.height / 1.1);
+            menuLabel.fontSize = 20;
             [self addChild:menuLabel];
             SKShapeNode *exitCircleNode = [[SKShapeNode alloc]init];
-            exitCircleNode.path = [UIBezierPath bezierPathWithOvalInRect:CGRectMake(-120, -20, 250, 60)].CGPath;
+            exitCircleNode.path = [UIBezierPath bezierPathWithRect:CGRectMake(-70, -10, 125, 30)].CGPath;
             exitCircleNode.name = @"exitNode";
             exitCircleNode.fillColor = [SKColor clearColor];
             exitCircleNode.lineWidth = 2;
-            exitCircleNode.strokeColor = [SKColor blackColor];
+            exitCircleNode.strokeColor = [SKColor whiteColor];
+            
             [menuLabel addChild:exitCircleNode];
             [[NSUserDefaults standardUserDefaults]setFloat:0.0f forKey:@"accuracyPercentage"];
             [[NSUserDefaults standardUserDefaults]setInteger:0 forKey:@"accuracyBonus"];
+           
+             if (self.gameCenterEnabled) {
+            SKLabelNode *gcLabel = [SKLabelNode labelNodeWithFontNamed:@"HelveticaNeue"];
+            [gcLabel setText:@"Game Center"];
+            gcLabel.fontColor = [SKColor whiteColor];
+            gcLabel.position = CGPointMake(self.size.width - 100, self.size.height / 4);
+            gcLabel.fontSize = 20;
+            [self addChild:gcLabel];
+            SKShapeNode *GCNode = [[SKShapeNode alloc]init];
+            GCNode.path = [UIBezierPath bezierPathWithRect:CGRectMake(-65, -10, 130, 30)].CGPath;
+            GCNode.name = @"gcNode";
+            GCNode.fillColor = [SKColor clearColor];
+            GCNode.lineWidth = 2;
+            GCNode.strokeColor = [SKColor whiteColor];
+            self.gameCenterEnabled = [[NSUserDefaults standardUserDefaults] boolForKey:@"GCEnabled"];
+           
+                [gcLabel addChild:GCNode];
+            }
+            
             //4
           /*  [self runAction:
              [SKAction sequence:@[
@@ -160,10 +211,28 @@
                                   ]]
              ];
 
+        }else if ([node.name isEqualToString:@"gcNode"]){
+            [self showLB];
         }
     }
     
 }
+
+-(void)reportMyScore{
+    GKScore *score = [[GKScore alloc] initWithLeaderboardIdentifier:_leaderboardIdentifier];
+    score.value = _score;
+    
+    [GKScore reportScores:@[score] withCompletionHandler:^(NSError *error) {
+        if (error != nil) {
+            NSLog(@"%@", [error localizedDescription]);
+        }
+    }];
+}
+
+-(void)showLB{
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"showLB" object:nil];
+}
+
 
 -(void)exit
 {

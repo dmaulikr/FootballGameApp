@@ -46,6 +46,7 @@ static inline CGPoint rwNormalize(CGPoint a) {
 @property (nonatomic) NSInteger defenderDefeated;
 @property (nonatomic) NSInteger levelNumber;
 @property (nonatomic) NSInteger numberOfBallsUsed;
+@property (nonatomic) BOOL soundIsEnabled;
 
 @end
 
@@ -55,6 +56,7 @@ static inline CGPoint rwNormalize(CGPoint a) {
     if (self = [super initWithSize:size]) {
         
         // 2
+        self.soundIsEnabled = [[FGUtilities sharedInstance]vcObject].soundIsEnabled;
         NSLog(@"Size: %@", NSStringFromCGSize(size));
         self.playerColor = [[FGUtilities sharedInstance]vcObject].playerColor;
         
@@ -100,9 +102,10 @@ static inline CGPoint rwNormalize(CGPoint a) {
         [self.levelLabel setPosition:CGPointMake(50, 300)];
         [self.levelLabel setFontSize:20];
         self.levelNumber = [[NSUserDefaults standardUserDefaults]integerForKey:@"level"];
-        if (self.levelNumber < 2) {
+        if (self.levelNumber <= 1) {
             [[NSUserDefaults standardUserDefaults]setInteger:0 forKey:@"currentScore"];
-            [[NSUserDefaults standardUserDefaults]setInteger:0 forKey:@"ballsUsed"];
+        }else{
+            self.numberOfBallsUsed = [[NSUserDefaults standardUserDefaults]integerForKey:@"ballsUsed"];
         }
         [self.levelLabel setText:[NSString stringWithFormat:@"Level %ld", (long)self.levelNumber]];
         [self addChild:self.levelLabel];
@@ -266,7 +269,10 @@ static inline CGPoint rwNormalize(CGPoint a) {
     }*/
 }
 -(void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event {
-    [self runAction:[SKAction playSoundFileNamed:@"bounce.mp3" waitForCompletion:NO]];
+    if (self.soundIsEnabled) {
+        [self runAction:[SKAction playSoundFileNamed:@"bounce.mp3" waitForCompletion:NO]];
+    }
+    
     // 1 - Choose one of the touches to work with
     UITouch * touch = [touches anyObject];
     CGPoint location = [touch locationInNode:self];
@@ -323,7 +329,7 @@ static inline CGPoint rwNormalize(CGPoint a) {
         SKTransition *reveal = [SKTransition flipHorizontalWithDuration:0.5];
         SKScene *gameOverScene = [[GameOverScene alloc]initWithSize:self.size won:YES];
         [[NSUserDefaults standardUserDefaults]setInteger:self.defenderDefeated forKey:@"currentScore"];
-       
+        [[NSUserDefaults standardUserDefaults]setInteger:self.numberOfBallsUsed forKey:@"ballsUsed"];
         
         
         [self.view presentScene:gameOverScene transition:reveal];

@@ -10,10 +10,14 @@
 #import "MenuViewController.h"
 #import "MyScene.h"
 #import "FGUtilities.h"
+#import "CustomActionSheet.h"
 @import AVFoundation;
 
 @interface ViewController()
 @property (nonatomic)AVAudioPlayer *backgroundMusicPlayer;
+@property (nonatomic, strong) NSString *leaderboardIdentifier;
+@property (nonatomic, strong) CustomActionSheet *customActionSheet;
+@property (nonatomic) BOOL isGameCenterEnabled;
 @end
 
 
@@ -26,14 +30,18 @@
 }
 - (void)viewDidLoad
 {
+    
     [super viewDidLoad];
     [self initialSetup];
     self.levelNumber = 1;
+    self.isGameCenterEnabled = [[NSUserDefaults standardUserDefaults] boolForKey:@"GCEnabled"];
     [[NSUserDefaults standardUserDefaults] setInteger:self.levelNumber  forKey:@"level"];
     [[NSUserDefaults standardUserDefaults] setObject:self.playerColor   forKey:@"playerColor"];
     [[NSUserDefaults standardUserDefaults] setObject:self.opponentColor forKey:@"opponentColor"];
     [[NSUserDefaults standardUserDefaults] setInteger:self.difficulty   forKey:@"difficulty"];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(closeScene) name:@"closeScene" object:Nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(showGCOptions:) name:@"showLB" object:Nil];
+     _leaderboardIdentifier = @"Footvaders.Leaderboard";
 //    _pauseButton = [[UIButton alloc]init];
 //    _pauseButton = [UIButton buttonWithType:UIButtonTypeCustom];
 //    [_pauseButton addTarget:self
@@ -63,6 +71,58 @@
     [self dismissViewControllerAnimated:YES completion:nil];
     //[[NSNotificationCenter defaultCenter] removeObserver:self name:@"closeScene" object:nil];
 }
+
+- (IBAction)showGCOptions:(id)sender {
+    // Allow the action sheet to be displayed if only the gameCenterEnabled flag is true, meaning if only
+    // a player has been authenticated.
+    if (self.isGameCenterEnabled) {
+        if (_customActionSheet != nil) {
+            _customActionSheet = nil;
+        }
+        
+        // Create a CustomActionSheet object and handle the tapped button in the completion handler block.
+        _customActionSheet = [[CustomActionSheet alloc] initWithTitle:@""
+                                                             delegate:nil
+                                                    cancelButtonTitle:@"Cancel"
+                                               destructiveButtonTitle:nil
+                                                    otherButtonTitles:@"View Leaderboard", @"View Achievements", @"Reset Achievements", nil];
+        [_customActionSheet showInView:self.view
+                 withCompletionHandler:^(NSString *buttonTitle, NSInteger buttonIndex) {
+                     
+                     if ([buttonTitle isEqualToString:@"View Leaderboard"]) {
+                         [self showLeaderboardAndAchievements:YES];
+                     }
+                     else if ([buttonTitle isEqualToString:@"View Achievements"]) {
+                         [self showLeaderboardAndAchievements:NO];
+                     }
+                     else{
+                         
+                     }
+                 }];
+    }
+}
+
+-(void)showLeaderboardAndAchievements:(BOOL)shouldShowLeaderboard
+{
+    GKGameCenterViewController *gcViewController = [[GKGameCenterViewController alloc] init];
+    
+    gcViewController.gameCenterDelegate = self;
+    
+    if (shouldShowLeaderboard) {
+        gcViewController.viewState = GKGameCenterViewControllerStateLeaderboards;
+        gcViewController.leaderboardIdentifier = self.leaderboardIdentifier;
+    }
+    else{
+        gcViewController.viewState = GKGameCenterViewControllerStateAchievements;
+    }
+    
+    [self presentViewController:gcViewController animated:YES completion:nil];
+}
+-(void)gameCenterViewControllerDidFinish:(GKGameCenterViewController *)gameCenterViewController
+{
+    [gameCenterViewController dismissViewControllerAnimated:YES completion:nil];
+}
+
 
 - (void)viewWillLayoutSubviews
 {
