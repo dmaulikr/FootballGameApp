@@ -12,12 +12,16 @@
 #import "FGUtilities.h"
 #import "CustomActionSheet.h"
 @import AVFoundation;
+@import iAd;
 
-@interface ViewController()
+
+@interface ViewController()<ADInterstitialAdDelegate>
+
 @property (nonatomic)AVAudioPlayer *backgroundMusicPlayer;
 @property (nonatomic, strong) NSString *leaderboardIdentifier;
 @property (nonatomic, strong) CustomActionSheet *customActionSheet;
 @property (nonatomic) BOOL isGameCenterEnabled;
+
 @end
 
 
@@ -33,7 +37,7 @@
     
     [super viewDidLoad];
     [self initialSetup];
-    self.levelNumber = 1;
+       self.levelNumber = 1;
     self.isGameCenterEnabled = [[NSUserDefaults standardUserDefaults] boolForKey:@"GCEnabled"];
     [[NSUserDefaults standardUserDefaults] setInteger:self.levelNumber  forKey:@"level"];
     [[NSUserDefaults standardUserDefaults] setObject:self.playerColor   forKey:@"playerColor"];
@@ -42,6 +46,8 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(closeScene) name:@"closeScene" object:Nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(showGCOptions:) name:@"showLB" object:Nil];
      _leaderboardIdentifier = @"Footvaders.Leaderboard";
+    
+    
 //    _pauseButton = [[UIButton alloc]init];
 //    _pauseButton = [UIButton buttonWithType:UIButtonTypeCustom];
 //    [_pauseButton addTarget:self

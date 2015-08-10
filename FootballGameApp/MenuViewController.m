@@ -11,8 +11,13 @@
 #import "ViewController.h"
 #import "UserPreferences.h"
 #import "GCHelper.h"
+@import iAd;
 
-@interface MenuViewController ()
+@interface MenuViewController ()<ADInterstitialAdDelegate>
+{
+    ADInterstitialAd *interstitial;
+    UIView *_adPlaceholderView;
+}
 @property (strong) NSMutableArray *savedPreferences;
 @property (nonatomic) BOOL gameCenterEnabled;
 @property (nonatomic, strong) NSString *leaderboardIdentifier;
@@ -40,6 +45,11 @@
     self.fetchedPreferences = [appDelegate getUserPreferences];
     _gameCenterEnabled = NO;
     _leaderboardIdentifier = @"Footvaders.Leaderboard";
+    interstitial = [[ADInterstitialAd alloc] init];
+    interstitial.delegate = self;
+    self.interstitialPresentationPolicy = ADInterstitialPresentationPolicyManual;
+    //[self.btnStartGame setTitle:NSLocalizedString(@"StartGame", nil) forState:UIControlStateNormal];
+   // [self.btnOptions setTitle:NSLocalizedString(@"OptionsLabel", nil) forState:UIControlStateNormal];
     
     //[[GCHelper sharedInstance] authenticateLocalUserInController:self];
     [self authenticatePlayer];
@@ -97,7 +107,8 @@
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(UIButton *)sender
 {
     NSString *currentSegue = sender.titleLabel.text;
-    if ([currentSegue isEqualToString:@"Options"]) {
+    
+    if (sender.tag == 102) {
         GameOptionsViewController *gameOptionsVC = (GameOptionsViewController *)[segue destinationViewController];
         [gameOptionsVC setSoundIsOn:self.soundIsOn];
         
@@ -158,5 +169,45 @@
         }
     };
 }
+
+- (void)showInterstitialAd {
+    
+    
+    if (interstitial.loaded){
+        _adPlaceholderView = [[UIView alloc] initWithFrame:self.view.bounds];
+        [self.view addSubview:_adPlaceholderView];
+        [interstitial presentInView:_adPlaceholderView];
+        
+        UIButton* button = [UIButton buttonWithType:UIButtonTypeCustom];
+        [button addTarget:self action:@selector(closeAd:) forControlEvents:UIControlEventTouchDown];
+        button.backgroundColor = [UIColor clearColor];
+        [button setBackgroundImage:[UIImage imageNamed:@"closeButton"] forState:UIControlStateNormal];
+        button.frame = CGRectMake(0, 0, 30, 30);
+        [_adPlaceholderView addSubview:button];
+    }
+}
+
+-(void)closeAd:(UIButton *)sender {
+    [sender removeFromSuperview];
+    [_adPlaceholderView removeFromSuperview];
+    
+    
+}
+
+- (void)interstitialAdDidLoad:(ADInterstitialAd *)interstitialAd {
+    NSLog(@"Interstitial ad loaded");
+    [self showInterstitialAd];
+    
+}
+
+- (void)interstitialAdDidUnload:(ADInterstitialAd *)interstitialAd {
+}
+
+
+
+- (void)interstitialAd:(ADInterstitialAd *)interstitialAd didFailWithError:(NSError *)error {
+    NSLog(@"Interstitial ad failed to load");
+}
+
 
 @end

@@ -47,7 +47,7 @@ static inline CGPoint rwNormalize(CGPoint a) {
 @property (nonatomic) NSInteger levelNumber;
 @property (nonatomic) NSInteger numberOfBallsUsed;
 @property (nonatomic) BOOL soundIsEnabled;
-
+@property (nonatomic) NSArray *playerArray;
 @end
 
 @implementation MyScene
@@ -56,6 +56,30 @@ static inline CGPoint rwNormalize(CGPoint a) {
     if (self = [super initWithSize:size]) {
         
         // 2
+        self.playerArray = @[@"Alexis",
+                             @"cavani",
+                             @"farfan",
+                             @"james",
+                             @"mariappa",
+                             @"messi",
+                             @"moreno",
+                             @"NeymarJr",
+                             @"oribe",
+                             @"roque",
+                             @"valencia",
+                             @"venezuela",
+                             @"robben",
+                             @"cr7",
+                             @"zlatan",
+                             @"hazard",
+                             @"gerrard",
+                             @"rooney",
+                             @"iniesta",
+                             @"benzema",
+                             @"muller"
+                             ];
+        
+        
         self.soundIsEnabled = [[FGUtilities sharedInstance]vcObject].soundIsEnabled;
         NSLog(@"Size: %@", NSStringFromCGSize(size));
         self.playerColor = [[FGUtilities sharedInstance]vcObject].playerColor;
@@ -70,18 +94,18 @@ static inline CGPoint rwNormalize(CGPoint a) {
         
         
         // 4
-        self.player = [SKSpriteNode spriteNodeWithImageNamed:@"bluePlayer"];
+        self.player = [SKSpriteNode spriteNodeWithImageNamed:@"buffon"];
 
         NSDictionary *dictColor = @{
                                     @"blue":^{
-                                        self.player = [SKSpriteNode spriteNodeWithImageNamed:@"bluePlayer"];
+                                        self.player = [SKSpriteNode spriteNodeWithImageNamed:@"buffon"];
                                     },
                                     @"green": ^{
-                                        self.player = [SKSpriteNode spriteNodeWithImageNamed:@"greenPlayer"];
+                                        self.player = [SKSpriteNode spriteNodeWithImageNamed:@"curtois"];
                                     },@"red": ^{
-                                        self.player = [SKSpriteNode spriteNodeWithImageNamed:@"redPlayer"];
+                                        self.player = [SKSpriteNode spriteNodeWithImageNamed:@"casillas"];
                                     },@"yellow": ^{
-                                        self.player = [SKSpriteNode spriteNodeWithImageNamed:@"yellowPlayer"];
+                                        self.player = [SKSpriteNode spriteNodeWithImageNamed:@"neuer"];
                                     },
         };
         ((PlayerColorBlock)dictColor[self.playerColor])();
@@ -92,7 +116,7 @@ static inline CGPoint rwNormalize(CGPoint a) {
         self.scoreTitleLabel = [[SKLabelNode alloc]initWithFontNamed:@"HelveticaNeue"];
         [self.scoreTitleLabel setPosition:CGPointMake(self.size.width - 100, 10)];
         [self.scoreTitleLabel setFontSize:20];
-        [self.scoreTitleLabel setText:@"Score"];
+        [self.scoreTitleLabel setText:NSLocalizedString(@"Score", nil)];
         [self addChild:self.scoreTitleLabel];
         
         self.scoreNumberLabel = [[SKLabelNode alloc]initWithFontNamed:@"HelveticaNeue"];
@@ -107,7 +131,7 @@ static inline CGPoint rwNormalize(CGPoint a) {
         }else{
             self.numberOfBallsUsed = [[NSUserDefaults standardUserDefaults]integerForKey:@"ballsUsed"];
         }
-        [self.levelLabel setText:[NSString stringWithFormat:@"Level %ld", (long)self.levelNumber]];
+        self.levelLabel.text = [NSString stringWithFormat:@"%@ %ld",NSLocalizedString(@"Level", nil), (long)self.levelNumber];
         [self addChild:self.levelLabel];
         NSInteger currentScore = [[NSUserDefaults standardUserDefaults]integerForKey:@"currentScore"];
         if (currentScore > 0) {
@@ -130,7 +154,11 @@ static inline CGPoint rwNormalize(CGPoint a) {
 }
 
 
-
+-(NSInteger)randomIDnumber
+{
+    NSUInteger r = arc4random_uniform(21);
+    return r;
+}
 
 -(void)addDefenders:(NSInteger)defenders
 {
@@ -142,22 +170,10 @@ static inline CGPoint rwNormalize(CGPoint a) {
     for (int x = 0; x<defenders; x++) {
         __block SKSpriteNode *defender;
     
-        NSDictionary *dictColor = @{
-                                    @"blue":^{
-                                        defender = [SKSpriteNode spriteNodeWithImageNamed:@"blueDefender"];
-                                    },
-                                    @"green": ^{
-                                        defender = [SKSpriteNode spriteNodeWithImageNamed:@"greenDefender"];
-                                    },@"red": ^{
-                                        defender = [SKSpriteNode spriteNodeWithImageNamed:@"redDefender"];
-                                    },@"yellow": ^{
-                                        defender = [SKSpriteNode spriteNodeWithImageNamed:@"yellowDefender"];
-                                    },
-                                    };
-        if (self.opponentColor) {
+        /*if (self.opponentColor) {
             ((OpponentColorBlock)dictColor[self.opponentColor])();
-        }
-        
+        }*/
+        defender = [SKSpriteNode spriteNodeWithImageNamed:[self.playerArray objectAtIndex:[self randomIDnumber]]];
        
         defender.physicsBody = [SKPhysicsBody bodyWithRectangleOfSize:defender.size];
         defender.physicsBody.dynamic = YES;
@@ -195,7 +211,7 @@ static inline CGPoint rwNormalize(CGPoint a) {
              int accuracyBonus = self.defenderDefeated * bonus;
             [[NSUserDefaults standardUserDefaults]setFloat:accuracyPercentage forKey:@"accuracyPercentage"];
             [[NSUserDefaults standardUserDefaults]setInteger:accuracyBonus forKey:@"accuracyBonus"];
-            
+           
             
             SKScene *gameOverScene = [[GameOverScene alloc]initWithSize:self.size won:NO];
             [self.view presentScene:gameOverScene transition:reveal];

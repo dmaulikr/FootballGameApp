@@ -1,0 +1,45 @@
+
+/* Class = "UILabel"; text = "Player Color:"; ObjectID = "5z3-GE-ZHy"; */
+"5z3-GE-ZHy.text" = "Color Jugador:";
+
+/* Class = "UIButton"; normalTitle = "Easy"; ObjectID = "9zi-2p-Qs4"; */
+"9zi-2p-Qs4.normalTitle" = "Fácil";
+
+/* Class = "UIButton"; normalTitle = "Medium"; ObjectID = "Dmk-3r-exQ"; */
+"Dmk-3r-exQ.normalTitle" = "Medio";
+
+/* Class = "UIButton"; normalTitle = "Cancel"; ObjectID = "EFJ-yv-Gth"; */
+"EFJ-yv-Gth.normalTitle" = "Cancelar";
+
+/* Class = "UIButton"; normalTitle = "Options"; ObjectID = "Sc8-sF-UUL"; */
+"Sc8-sF-UUL.normalTitle" = "Opciones";
+
+/* Class = "UILabel"; text = "Options"; ObjectID = "YgQ-A7-QMT"; */
+"YgQ-A7-QMT.text" = "Opciones";
+
+/* Class = "UIButton"; normalTitle = "Start Game"; ObjectID = "asx-Dq-eVG"; */
+"asx-Dq-eVG.normalTitle" = "Jugar";
+
+/* Class = "UILabel"; text = "Footvaders"; ObjectID = "eDk-rq-Q7m"; */
+"eDk-rq-Q7m.text" = "Footvaders";
+
+/* Class = "UILabel"; text = "Difficulty:"; ObjectID = "eJR-1s-fhk"; */
+"eJR-1s-fhk.text" = "Dificultad:";
+
+/* Class = "UIButton"; normalTitle = "Save"; ObjectID = "fe3-gF-yMx"; */
+"fe3-gF-yMx.normalTitle" = "Guardar";
+
+/* Class = "UIButton"; normalTitle = "ON"; ObjectID = "hhW-Bo-9Me"; */
+"hhW-Bo-9Me.normalTitle" = "Si";
+
+/* Class = "UIButton"; normalTitle = "Hard"; ObjectID = "lYX-82-lsA"; */
+"lYX-82-lsA.normalTitle" = "Difícil";
+
+/* Class = "UILabel"; text = "Sound:"; ObjectID = "u4V-Gk-ncv"; */
+"u4V-Gk-ncv.text" = "Sonido:";
+
+/* Class = "UILabel"; text = "Copa America"; ObjectID = "vUj-6o-n1w"; */
+"vUj-6o-n1w.text" = "Copa America";
+
+/* Class = "UIButton"; normalTitle = "OFF"; ObjectID = "xEA-En-MpM"; */
+"xEA-En-MpM.normalTitle" = "No";

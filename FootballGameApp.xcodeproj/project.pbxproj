@@ -10,8 +10,8 @@
 		0E03EAA7197F6876009FD5A3 /* GamePreferences.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 0E03EAA5197F6876009FD5A3 /* GamePreferences.xcdatamodeld */; };
 		0E03EAAE197F7244009FD5A3 /* FGUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E03EAAD197F7244009FD5A3 /* FGUtilities.m */; };
 		0E3A2B00198C811100E0C2A3 /* NextLevelScene.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E3A2AFF198C811100E0C2A3 /* NextLevelScene.m */; };
+		0E4169FB1B2F2644005E3F1B /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 0E4169FD1B2F2644005E3F1B /* Localizable.strings */; };
 		0E4CDD3F19762FB400930256 /* MenuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E4CDD3E19762FB400930256 /* MenuViewController.m */; };
-		0E4CDD41197638F400930256 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 0E4CDD40197638F400930256 /* Localizable.strings */; };
 		0E4CDD4419763DAE00930256 /* GameOptionsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E4CDD4319763DAE00930256 /* GameOptionsViewController.m */; };
 		0E4D0C8E199347F000DC70A2 /* UIColor+customProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E4D0C8D199347F000DC70A2 /* UIColor+customProperties.m */; };
 		0E58C0941970F19600DF7E8C /* GameOverScene.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E58C0931970F19600DF7E8C /* GameOverScene.m */; };
@@ -60,9 +60,18 @@
 		0E03EAAD197F7244009FD5A3 /* FGUtilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FGUtilities.m; sourceTree = "<group>"; };
 		0E3A2AFE198C811100E0C2A3 /* NextLevelScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NextLevelScene.h; sourceTree = "<group>"; };
 		0E3A2AFF198C811100E0C2A3 /* NextLevelScene.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NextLevelScene.m; sourceTree = "<group>"; };
+		0E4169EE1B2F0F87005E3F1B /* pt */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = pt; path = pt.lproj/Main_iPhone.strings; sourceTree = "<group>"; };
+		0E4169EF1B2F0F87005E3F1B /* pt */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = pt; path = pt.lproj/Main_iPad.strings; sourceTree = "<group>"; };
+		0E4169F11B2F0F87005E3F1B /* pt */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = pt; path = pt.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		0E4169F21B2F0F88005E3F1B /* pt */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = pt; path = pt.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		0E4169F31B2F15E2005E3F1B /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/Main_iPhone.strings; sourceTree = "<group>"; };
+		0E4169F41B2F15E2005E3F1B /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/Main_iPad.strings; sourceTree = "<group>"; };
+		0E4169F61B2F15E2005E3F1B /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		0E4169F71B2F15E3005E3F1B /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		0E4169FC1B2F2644005E3F1B /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
+		0E4169FE1B2F2652005E3F1B /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/Localizable.strings; sourceTree = "<group>"; };
 		0E4CDD3D19762FB400930256 /* MenuViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MenuViewController.h; sourceTree = "<group>"; };
 		0E4CDD3E19762FB400930256 /* MenuViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MenuViewController.m; sourceTree = "<group>"; };
-		0E4CDD40197638F400930256 /* Localizable.strings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; path = Localizable.strings; sourceTree = "<group>"; };
 		0E4CDD4219763DAE00930256 /* GameOptionsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameOptionsViewController.h; sourceTree = "<group>"; };
 		0E4CDD4319763DAE00930256 /* GameOptionsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameOptionsViewController.m; sourceTree = "<group>"; };
 		0E4D0C8C199347F000DC70A2 /* UIColor+customProperties.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+customProperties.h"; sourceTree = "<group>"; };
@@ -188,6 +197,7 @@
 		0EFAC441196E3F6600B6B8C0 /* FootballGameApp */ = {
 			isa = PBXGroup;
 			children = (
+				0E4169FD1B2F2644005E3F1B /* Localizable.strings */,
 				0E03EAAC197F7244009FD5A3 /* FGUtilities.h */,
 				0E03EAAD197F7244009FD5A3 /* FGUtilities.m */,
 				0EF9138D1A7174F500C9E5D3 /* GCHelper.h */,
@@ -226,7 +236,6 @@
 				0EFAC47A196E517300B6B8C0 /* Sounds */,
 				0EFAC443196E3F6600B6B8C0 /* FootballGameApp-Info.plist */,
 				0EFAC444196E3F6600B6B8C0 /* InfoPlist.strings */,
-				0E4CDD40197638F400930256 /* Localizable.strings */,
 				0EFAC447196E3F6600B6B8C0 /* main.m */,
 				0EFAC449196E3F6600B6B8C0 /* FootballGameApp-Prefix.pch */,
 			);
@@ -324,6 +333,8 @@
 			knownRegions = (
 				en,
 				Base,
+				pt,
+				es,
 			);
 			mainGroup = 0EFAC42D196E3F6600B6B8C0;
 			productRefGroup = 0EFAC437196E3F6600B6B8C0 /* Products */;
@@ -346,7 +357,7 @@
 				0EFAC45A196E3F6600B6B8C0 /* Spaceship.png in Resources */,
 				0EFAC45C196E3F6600B6B8C0 /* Images.xcassets in Resources */,
 				0EFAC47E196E528800B6B8C0 /* bounce.mp3 in Resources */,
-				0E4CDD41197638F400930256 /* Localizable.strings in Resources */,
+				0E4169FB1B2F2644005E3F1B /* Localizable.strings in Resources */,
 				0E6033141970FEF5003974EF /* cheerCrowd.mp3 in Resources */,
 				0EFAC452196E3F6600B6B8C0 /* Main_iPad.storyboard in Resources */,
 				0EFAC44F196E3F6600B6B8C0 /* Main_iPhone.storyboard in Resources */,
@@ -405,10 +416,22 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
+		0E4169FD1B2F2644005E3F1B /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				0E4169FC1B2F2644005E3F1B /* en */,
+				0E4169FE1B2F2652005E3F1B /* es */,
+			);
+			name = Localizable.strings;
+			path = /Users/ernestosk/Desktop/SKapps/iOS/FootballGameApp/FootballGameApp;
+			sourceTree = "<absolute>";
+		};
 		0EFAC444196E3F6600B6B8C0 /* InfoPlist.strings */ = {
 			isa = PBXVariantGroup;
 			children = (
 				0EFAC445196E3F6600B6B8C0 /* en */,
+				0E4169F11B2F0F87005E3F1B /* pt */,
+				0E4169F61B2F15E2005E3F1B /* es */,
 			);
 			name = InfoPlist.strings;
 			sourceTree = "<group>";
@@ -417,6 +440,8 @@
 			isa = PBXVariantGroup;
 			children = (
 				0EFAC44E196E3F6600B6B8C0 /* Base */,
+				0E4169EE1B2F0F87005E3F1B /* pt */,
+				0E4169F31B2F15E2005E3F1B /* es */,
 			);
 			name = Main_iPhone.storyboard;
 			sourceTree = "<group>";
@@ -425,6 +450,8 @@
 			isa = PBXVariantGroup;
 			children = (
 				0EFAC451196E3F6600B6B8C0 /* Base */,
+				0E4169EF1B2F0F87005E3F1B /* pt */,
+				0E4169F41B2F15E2005E3F1B /* es */,
 			);
 			name = Main_iPad.storyboard;
 			sourceTree = "<group>";
@@ -433,6 +460,8 @@
 			isa = PBXVariantGroup;
 			children = (
 				0EFAC46C196E3F6600B6B8C0 /* en */,
+				0E4169F21B2F0F88005E3F1B /* pt */,
+				0E4169F71B2F15E3005E3F1B /* es */,
 			);
 			name = InfoPlist.strings;
 			sourceTree = "<group>";
@@ -518,12 +547,12 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer: Ernesto Sanchez Kuri (P95SHRVM8Q)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Ernesto Sanchez Kuri (P95SHRVM8Q)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "FootballGameApp/FootballGameApp-Prefix.pch";
 				INFOPLIST_FILE = "FootballGameApp/FootballGameApp-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "cac18bf8-264e-41a0-9227-77aa6e209054";
+				PROVISIONING_PROFILE = "6abb0735-90f1-4083-bc21-aaf3b6aa4e44";
 				SPRITEKIT_TEXTURE_ATLAS_OUTPUT = YES;
 				TARGETED_DEVICE_FAMILY = 1;
 				WRAPPER_EXTENSION = app;
@@ -535,13 +564,13 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Ernesto Sanchez Kuri (49VFMFM852)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "FootballGameApp/FootballGameApp-Prefix.pch";
 				INFOPLIST_FILE = "FootballGameApp/FootballGameApp-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "75EC98A1-C74C-47BA-84B2-0900A899A763";
+				PROVISIONING_PROFILE = "5993a038-d870-4214-bcb7-5a8f6e76c014";
 				SPRITEKIT_TEXTURE_ATLAS_OUTPUT = YES;
 				TARGETED_DEVICE_FAMILY = 1;
 				WRAPPER_EXTENSION = app;

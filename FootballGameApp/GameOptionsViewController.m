@@ -75,7 +75,7 @@
     
     [self.btnCancel addTarget:self action:@selector(cancelAction) forControlEvents:UIControlEventTouchUpInside];
     [self.btnSave addTarget:self action:@selector(saveAction) forControlEvents:UIControlEventTouchUpInside];
-    for (UIButton *roundedButton in self.view.subviews)
+   /* for (UIButton *roundedButton in self.view.subviews)
     {
         if (roundedButton.tag > 2999) {
             [roundedButton.layer setCornerRadius:roundedButton.frame.size.height / 2];
@@ -83,7 +83,7 @@
             [roundedButton.layer setBorderColor:[UIColor clearColor].CGColor];
         }
     }
-    
+    */
 
 }
 

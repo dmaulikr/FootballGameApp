@@ -1,0 +1,28 @@
+/* 
+  Localizable.strings
+  FootballGameApp
+
+  Created by Ernesto Sánchez Kuri on 15/06/15.
+  Copyright (c) 2015 Ernesto Sánchez Kuri. All rights reserved.
+*/
+"StartGame" = "Jugar";
+"OptionsLabel" = "Opciones";
+"CancelLabel" = "Cancelar";
+"SaveLabel" = "Guardar";
+"DifficultyLabel" = "Dificultad";
+"EasyLbl" = "Fácil";
+"MediumLbl" = "Media";
+"HardLbl" = "Difícil";
+"SoundLbl" = "Sonido";
+"OnLbl" = "Si";
+"OffLbl" = "No";
+"PlayerColor" = "Jugador";
+"Level" = "Nivel";
+"Score" = "Puntaje";
+"FinalScore" = "Tu puntaje final es:";
+"DifficultyMultiplier" = "Tu mutiplicador de dificultad es de:";
+"AccuracyLbl" = "Tu precisión fue de";
+"DefeatedLbl" = "Venciste a";
+"DefendersLbl" = "Defensas";
+"PlayAgainLbl" = "Jugar de nuevo";
+"ExitLbl" = "Salir";
